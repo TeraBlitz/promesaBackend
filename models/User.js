@@ -2,31 +2,45 @@ const Sequelize = require("sequelize")
 const db = require("../database/db")
 
 module.exports = db.sequelize.define(
-    'user',
+    'userBase',
     {
-        id: {
+        userId: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        first_name: {
+        fName: {
             type: Sequelize.STRING
         },
-        last_name: {
+        lName: {
             type: Sequelize.STRING
         },
-        email: {
+        username: {
             type: Sequelize.STRING
         },
+        // email: {
+        //     type: Sequelize.STRING
+        // },
         password: {
             type: Sequelize.STRING
         },
-        created: {
-            type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW
+        authLevel: {
+            type: Sequelize.INTEGER
+        },
+        companyName: {
+            type: Sequelize.INTEGER
         }
     },
     {
         timestamps: false,
+        freezeTableName: true
     }
-)
+) 
+
+// userId int not null auto_increment primary key,
+// fName varchar(255) not null,
+// lName varchar(255) not null,
+// username varchar(255) not null,
+// password varchar(255) not null,
+// authLevel int not null,
+// companyName varchar(255) not null,

@@ -41,6 +41,24 @@ bitacora.post("/register", (req, res) => {
 })
 
 
+bitacora.get("/getSpesific", (req,res) => {
+    Bitacora.findAll({
+        where: {
+            companyName: req.body.companyName
+        }
+    })
+            .then(projects => {
+                // projects will be an array of all Project instances
+                res.json({projects})
+              }  
+    )
+    .catch(err => {
+        res.send('error: ' + err)
+    })
+
+})
+
+
 bitacora.get("/getAll", (req,res) => {
     Bitacora.findAll()
             .then(projects => {

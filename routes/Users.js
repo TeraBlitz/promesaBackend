@@ -12,16 +12,19 @@ process.env.SECRET_KEY = 'secret'
 users.post("/register", (req, res) => {
     const today = new Date()
     const userData = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
+        fName: req.body.fName,
+        lName: req.body.lName,
+        username: req.body.username,
+        //email: req.body.email,
         password: req.body.password,
-        created: today
+        authLevel: req.body.authLevel,
+        companyName: req.body.companyName
+        //created: today
     }
 
     User.findOne({
         where: {
-            email: req.body.email
+            username: req.body.username
         }
     })
         .then(user => {
@@ -30,7 +33,7 @@ users.post("/register", (req, res) => {
                     userData.password = hash
                     User.create(userData)
                         .then(user => {
-                            res.json({ status: user.email + ' registered' })
+                            res.json({ status: user.username + ' registered' })
                         })
                         .catch(err => {
                             res.send('error: ' + err)
@@ -48,7 +51,7 @@ users.post("/register", (req, res) => {
 users.post("/login", (req, res) => {
     User.findOne({
         where: {
-            email: req.body.email
+            username: req.body.username
         }
     })
         .then(user => {
